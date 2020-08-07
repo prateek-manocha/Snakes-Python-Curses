@@ -57,10 +57,10 @@ class Snake():
         return True
 
 
-def main(stdscr):
+def main(stdscr, snake_speed=100):
     curses.curs_set(0)
     stdscr.nodelay(1)
-    stdscr.timeout(100)
+    stdscr.timeout(snake_speed)
     sh, sw = stdscr.getmaxyx()
     ground = Ground(sh, sw, stdscr)
     snake = Snake(sh, sw, stdscr)
