@@ -84,7 +84,9 @@ def main(stdscr):
             snake.body.pop()
         if not snake.is_alive(ground.box):
             over = "Game Over."
+            msg = "Press any key to continue."
             ground.add_str(stdscr, sh//2, sw//2 - len(over)//2, over)
+            ground.add_str(stdscr, sh//2+1, sw//2 - len(msg)//2, msg)
             stdscr.nodelay(0)
             stdscr.getch()
             break
