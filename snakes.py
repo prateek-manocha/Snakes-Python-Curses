@@ -30,6 +30,14 @@ class Snake():
         self.score = 0
 
     def move(self, stdscr, key, ground):
+        if key in [ord("W"), ord("w")]:
+            key = curses.KEY_UP
+        elif key in [ord("S"), ord("s")]:
+            key = curses.KEY_DOWN
+        elif key in [ord("A"), ord("a")]:
+            key = curses.KEY_LEFT
+        elif key in [ord("D"), ord("d")]:
+            key = curses.KEY_RIGHT
         if key in [curses.KEY_RIGHT, curses.KEY_LEFT, curses.KEY_UP, curses.KEY_DOWN]:
             self.direction = key
         head = self.body[0]
