@@ -4,7 +4,7 @@ import curses
 class Menu():
     def __init__(self):
         self.menu = ["Home", "Play", "Scoreboard", "Exit"]
-        self.levels = ["Easy", "Medium", "Hard"]
+        self.levels = ["Easy", "Medium", "Hard", "Challenge"]
         self.options = ["Yes", "No"]
 
     def print_menu(self, stdscr, selected_row):

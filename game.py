@@ -6,7 +6,7 @@ import time
 
 
 def main(stdscr):
-    diff_level = {"Easy": 100, "Medium": 75, "Hard":50}
+    diff_level = {"Easy": 100, "Medium": 75, "Hard":50, "Challenge":25}
     while True:
         menu_list = Menu().menu
         sh, sw = stdscr.getmaxyx()
