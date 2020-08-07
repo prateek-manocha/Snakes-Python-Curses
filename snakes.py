@@ -38,6 +38,11 @@ class Snake():
             key = curses.KEY_LEFT
         elif key in [ord("D"), ord("d")]:
             key = curses.KEY_RIGHT
+        if (key == curses.KEY_RIGHT and self.direction == curses.KEY_LEFT) or\
+        (key == curses.KEY_LEFT and self.direction == curses.KEY_RIGHT) or\
+        (key == curses.KEY_UP and self.direction == curses.KEY_DOWN) or\
+        (key == curses.KEY_DOWN and self.direction == curses.KEY_UP):
+            return False
         if key in [curses.KEY_RIGHT, curses.KEY_LEFT, curses.KEY_UP, curses.KEY_DOWN]:
             self.direction = key
         head = self.body[0]
@@ -52,6 +57,7 @@ class Snake():
 
         self.body.insert(0, new_head)
         ground.add_str(stdscr, new_head[0], new_head[1], '#')
+        return True
 
     def ate_food(self, food):
         return self.body[0] == food
@@ -80,16 +86,17 @@ def main(stdscr, snake_speed=100):
     ground.add_str(stdscr, 1, sw//2 - len(score_text)//2, score_text)
     while 1:
         key = stdscr.getch()
-        snake.move(stdscr, key, ground)
-        if snake.ate_food(food):
-            food = food = ground.get_food(snake.body)
-            ground.add_str(stdscr, food[0], food[1], "@")
-            snake.score += 1
-            score_text = "Score: "+str(snake.score) # Score: 0
-            ground.add_str(stdscr, 1, sw//2 - len(score_text)//2, score_text)
-        else:
-            ground.add_str(stdscr, snake.body[-1][0], snake.body[-1][1], ' ')
-            snake.body.pop()
+        mov = snake.move(stdscr, key, ground)
+        if mov:
+            if snake.ate_food(food):
+                food = food = ground.get_food(snake.body)
+                ground.add_str(stdscr, food[0], food[1], "@")
+                snake.score += 1
+                score_text = "Score: "+str(snake.score) # Score: 0
+                ground.add_str(stdscr, 1, sw//2 - len(score_text)//2, score_text)
+            else:
+                ground.add_str(stdscr, snake.body[-1][0], snake.body[-1][1], ' ')
+                snake.body.pop()
         if not snake.is_alive(ground.box):
             over = "Game Over."
             msg = "Press any key to continue."
